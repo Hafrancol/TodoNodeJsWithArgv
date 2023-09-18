@@ -1,8 +1,6 @@
 
 import { access, readFile, constants} from 'node:fs/promises';
 
-
-
 export const readF = async (filePath: string) => {
 
     try {
@@ -13,4 +11,3 @@ export const readF = async (filePath: string) => {
         return false;
       }
 }
-

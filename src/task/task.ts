@@ -1,5 +1,5 @@
-import { TaskBase } from './abstractTask'
-const colors = require('colors');
+import { TaskBase } from './abstractTask.js'
+import chalk from 'chalk';
 
 export class Task extends TaskBase{
 
@@ -11,8 +11,7 @@ export class Task extends TaskBase{
     }
 
     override showTask(): void {
-        console.log(`${colors.blue('Description')}: ${this.description} \n${colors.blue('Id')}: ${this.id} \n${colors.blue('Completed')}: ${this._complete}
+        console.log(`${chalk.blue('Description')}: ${this.description} \n${chalk.blue('Id')}: ${this.id} \n${chalk.blue('Completed')}: ${this._complete}
         `)
     }
-
 }

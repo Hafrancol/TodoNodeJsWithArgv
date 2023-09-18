@@ -1,6 +1,6 @@
-import { Task } from "./task";
-import { saveInDb } from "../helpers/saveInDb";
-const colors = require('colors');
+import { Task } from "./task.js";
+import { saveInDb } from "../helpers/saveInDb.js";
+import chalk from 'chalk';
 
 export class Tasks {
 
@@ -29,7 +29,7 @@ export class Tasks {
 
     public listarTareas(): void {
         if(JSON.stringify(this._ListTasks) == JSON.stringify({})){
-            console.log(`${colors.blue("No hay lista de tareas...")}`);
+            console.log(`${chalk.blue("No hay lista de tareas...")}`);
             return;
         }
         const tasks: Task[] = Object.values(this._ListTasks);

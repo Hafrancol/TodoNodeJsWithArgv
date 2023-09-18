@@ -1,8 +1,6 @@
-import { pressEnter, showMenu, createNewTask} from "./helpers/inquirer";
-import { TaskBase } from "./task/abstractTask";
-import { Tasks } from "./task/tasks";
-import { Task } from "./task/task";
-import { readF } from "./helpers/readFile";
+import { pressEnter, showMenu, createNewTask} from "./helpers/inquirer.js";
+import { Tasks } from "./task/tasks.js";
+import { readF } from "./helpers/readFile.js";
 
 
 
@@ -19,7 +17,9 @@ do {
   option = await showMenu();
   switch(option){
     case 1: // crear tarea
-      const description = await createNewTask();
+      const description: any = await createNewTask();
+      console.log(description);
+      await pressEnter();
       tasks.createNewTask(description);;
       break;
     case 2:// listar tareas

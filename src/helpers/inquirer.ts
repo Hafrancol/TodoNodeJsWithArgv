@@ -2,8 +2,8 @@ interface Iopt {
     opt: number
   }
 
-const inquirer  = require('inquirer');
-const colors = require('colors');
+import inquirer, { Answers, QuestionCollection } from 'inquirer';
+import chalk from 'chalk';
 
 
 const questions = [
@@ -13,13 +13,13 @@ const questions = [
       message: 'Que opcion quiere eleguir ? ',
       choices: 
         [    new inquirer.Separator(),
-            {name: `${colors.green(1)}. Crear tarea`, value: 1},
-            {name: `${colors.green(2)}. Listar tarea`, value: 2},
-            {name: `${colors.green(3)}. Listar tareas completadas`, value: 3},
-            {name: `${colors.green(4)}. Listar tareas pendintes`, value: 4},
-            {name: `${colors.green(5)}. Completar tareas`, value: 5},
-            {name: `${colors.green(6)}. Borrar tareas`, value: 6},
-            {name: `${colors.green(0)}. Salir`, value: 0}
+            {name: `${chalk.green(1)}. Crear tarea`, value: 1},
+            {name: `${chalk.green(2)}. Listar tarea`, value: 2},
+            {name: `${chalk.green(3)}. Listar tareas completadas`, value: 3},
+            {name: `${chalk.green(4)}. Listar tareas pendintes`, value: 4},
+            {name: `${chalk.green(5)}. Completar tareas`, value: 5},
+            {name: `${chalk.green(6)}. Borrar tareas`, value: 6},
+            {name: `${chalk.green(0)}. Salir`, value: 0}
 
         ]
     },
@@ -28,9 +28,9 @@ const questions = [
 export const showMenu = async (): Promise<number> => {
 
     console.clear();
-    console.log(colors.green('==================================='));
-    console.log(colors.green('  Selecione una opcion '));
-    console.log(colors.green('==================================='));
+    console.log(chalk.green('==================================='));
+    console.log(chalk.green('  Selecione una opcion '));
+    console.log(chalk.green('==================================='));
 
     const { opt } : Iopt = await inquirer.prompt(questions);
     return opt;
@@ -39,25 +39,26 @@ export const showMenu = async (): Promise<number> => {
 
 export const pressEnter = async (): Promise<void> => {
 
-    const question = {
+    const pressEnter : QuestionCollection = {
         type: 'input',
         name: 'enter',
-        message : `Presione ${colors.red('Enter')} para continuar ...`
+        message : `Presione ${chalk.red('Enter')} para continuar ...`
     }
 
-    const res = await inquirer.prompt(question);
+    const res = await inquirer.prompt(pressEnter);
 }
 
 
-export const createNewTask = async (): Promise<string> => {
+export const createNewTask = async (): Promise<Answers> => {
 
-  const question = {
+  const newTask: QuestionCollection= {
       type: 'input',
       name: 'task',
       message : `Agrege una nueva tarea: `
   }
 
-  const { task }: {task: string} = await inquirer.prompt(question);
+  const { task } : Answers = await inquirer.prompt(newTask);
+  console.log(task)
   return task;
 }
 

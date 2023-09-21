@@ -18,6 +18,4 @@ export abstract class TaskBase {
     get id(): string {
         return this._id;
     }
-
-    showTask() { };
 }

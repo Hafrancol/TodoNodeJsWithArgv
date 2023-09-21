@@ -50,7 +50,7 @@ export const pressEnter = async (): Promise<void> => {
 
 
 export const createNewTask = async (): Promise<Answers> => {
-
+  console.clear();
   const newTask: QuestionCollection= {
       type: 'input',
       name: 'task',
@@ -58,10 +58,37 @@ export const createNewTask = async (): Promise<Answers> => {
   }
 
   const { task } : Answers = await inquirer.prompt(newTask);
-  console.log(task)
   return task;
 }
 
+
+export const deleteTask = async (listTask: any) => {
+  console.clear();
+ const choices =  Object.values(listTask).map((task: any, index: number)=> {
+  const{_description, _complete, _id} = task;
+  return {
+    name: `${chalk.green(index + 1)}. ${_description}`,
+    value: _id
+  }
+ })
+
+ choices.unshift({
+  name: `${chalk.green(0)}. ${chalk.blueBright('Retornar sin eliminar tarea')}`,
+  value: '0'
+});
+
+ const questions = [
+  {
+    type: 'list',
+    name: 'taskDeleted',
+    message: 'Seleciona la tarea que quieres borrar...',
+    choices
+  }
+ ]
+ const { taskDeleted } : Answers = await inquirer.prompt(questions)
+ return taskDeleted;
+  
+}
 
 
 

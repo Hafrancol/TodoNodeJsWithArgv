@@ -1,6 +1,7 @@
 import { Task } from "./task.js";
 import { saveInDb } from "../helpers/saveInDb.js";
 import chalk from 'chalk';
+import { ListTasks } from "../helpers/Enums/ListTaskEnum.js";
 
 export class Tasks {
 
@@ -10,12 +11,16 @@ export class Tasks {
         this._ListTasks = {};
     }
 
-
-    public createNewTask(descripciion: string) {
+    /**
+     *
+     *
+     * @param {string} descripciion
+     * @memberof Tasks
+     */
+    public createNewTask(descripciion: string): void {
         const task: Task = new Task(descripciion);
         this._ListTasks[task.id] = task;
         saveInDb(this._ListTasks);
-        
     }
 
     public loadTaskFromFile(listTask: any) {
@@ -25,17 +30,28 @@ export class Tasks {
         });
     }
     
-  
-
-    public listarTareas(): void {
-        if(JSON.stringify(this._ListTasks) == JSON.stringify({})){
+    public listarTareas(listTask : ListTasks): void {
+        if(this.isLisTaskEmpty){
             console.log(`${chalk.blue("No hay lista de tareas...")}`);
             return;
         }
         const tasks: Task[] = Object.values(this._ListTasks);
         tasks.forEach(tasks => {
-            tasks.showTask();
+            tasks.showTask(listTask);
         });
+    }
+
+    private get isLisTaskEmpty() : boolean {
+        return JSON.stringify(this._ListTasks) == JSON.stringify({});
+    }
+
+    get listTask () {
+        return this._ListTasks;
+    }
+
+    public deleteTask (id: string): void{
+        delete this._ListTasks[id];
+        saveInDb(this._ListTasks);
     }
 
 

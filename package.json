@@ -4,7 +4,9 @@
   "description": "Project to add task using 'yargs' library",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "exec" : "node ./build/index.js",
+    "tsc" : "cd ./src && tsc"
   },
   "repository": {
     "type": "git",

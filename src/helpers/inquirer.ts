@@ -62,9 +62,35 @@ export const createNewTask = async (): Promise<Answers> => {
 }
 
 
+export const completarTareas = async (listTasks: any): Promise<Answers[]> => {
+
+  const choices = Object.values(listTasks).map((task: any) => {
+
+    const{_description, _complete, _id} = task;
+    return { 
+    name:_description,
+    value:_id,
+    checked: _complete ? true : false
+    }
+
+  })
+
+  const question = [{
+    type:'checkbox',
+    name: 'check',
+    message: 'Please update the state of the task',
+    choices
+  }]
+
+  const { check } = await inquirer.prompt(question);
+  return check;
+}
+
+
+
 export const deleteTask = async (listTask: any) => {
   console.clear();
- const choices =  Object.values(listTask).map((task: any, index: number)=> {
+  const choices =  Object.values(listTask).map((task: any, index: number)=> {
   const{_description, _complete, _id} = task;
   return {
     name: `${chalk.green(index + 1)}. ${_description}`,

@@ -1,9 +1,15 @@
-import { pressEnter, showMenu, createNewTask, deleteTask} from "./helpers/inquirer.js";
+import { pressEnter, showMenu, createNewTask, deleteTask, completarTareas} from "./helpers/inquirer.js";
 import { Tasks } from "./task/tasks.js";
 import { readF } from "./helpers/readFile.js";
 import { ListTasks } from "./helpers/Enums/ListTaskEnum.js";
+import { Answers } from "inquirer";
+import { mkdir } from 'node:fs';
 
 const main = async () => {
+
+mkdir('./db', { recursive: true }, (err) => {
+  if (err) throw err;
+}); 
   const tasks: Tasks = new Tasks();
   let option: number = 0;
 
@@ -29,7 +35,9 @@ do {
       tasks.listarTareas(ListTasks.uncompleted);
       break;
     case 5:
-      console.log("case 5");
+      const IdCompleted : Answers[] = await completarTareas(tasks.listTask);
+      tasks.completarTareas(IdCompleted);
+
       break;
     case 6:
       const idTaskDeleted: string = await deleteTask(tasks.listTask);

@@ -2,6 +2,7 @@ import { Task } from "./task.js";
 import { saveInDb } from "../helpers/saveInDb.js";
 import chalk from 'chalk';
 import { ListTasks } from "../helpers/Enums/ListTaskEnum.js";
+import { Answers } from "inquirer";
 
 export class Tasks {
 
@@ -54,5 +55,16 @@ export class Tasks {
         saveInDb(this._ListTasks);
     }
 
+    public completarTareas = (idTaskCompleted: Answers[]) => {
 
+        Object.values(this._ListTasks).forEach((task: any)=> {
+            if(idTaskCompleted.includes(task._id)){
+                this._ListTasks[task._id]['_complete']= new Date().toISOString();
+            }
+            else {
+                this._ListTasks[task._id]['_complete']= null;
+            }
+        })
+        saveInDb(this._ListTasks);
+    }
 }
